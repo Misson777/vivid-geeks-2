@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ENGINEER
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  email           String   @unique
+  phone           String?
+  roles           Role[]   @default([USER])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+  assignedTickets Ticket[] @relation("EngineerTickets")
+  createdTickets  Ticket[] @relation("CreatorTickets")
+}
+
+model Ticket {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  message        String
+  subject        String
+  status         TicketStatus   @default(OPEN)
+  engineer       User?          @relation("EngineerTickets", fields: [engineerId], references: [id])
+  priority       TicketPriority @default(MEDIUM)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @default(now())
+  engineerId     String?        @db.ObjectId
+  creatorId      String         @db.ObjectId
+  creator        User           @relation("CreatorTickets", fields: [creatorId], references: [id])
+  approvalStatus ApprovalStatus @default(PENDING)
+}
