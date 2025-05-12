@@ -7,6 +7,7 @@ A modern IT service desk application built with Next.js, Prisma, and MongoDB.
 - Node.js 18.18 or later
 - pnpm (recommended package manager)
 - MongoDB database
+- Gmail account with App Password enabled
 
 ## Installation
 
@@ -36,8 +37,8 @@ pnpm --version
 
 ```bash
 # Clone the repository
-git clone https://github.com/jrTilak/vivid-geeks-2
-cd vivid-geeks-2
+git clone <repo-url>
+cd vivid-geeks
 
 # Install dependencies
 pnpm install
@@ -58,11 +59,13 @@ ADMIN_PASSWORD="your-secure-password"
 # Required: Email service URL for notifications
 EMAIL_SERVICE="https://your-email-service.com/api/send"
 
-# Optional: Set to "production" in production environments
-NODE_ENV="development"
 
 # Required: Email address to send admin notifications to
 NOTIFY_ADMIN_EMAIL="admin@example.com"
+
+# Required: Google App Password for sending emails
+GMAIL_USER=""
+GMAIL_APP_PASSWORD=""
 ```
 
 #### Environment Variables Explained:
@@ -70,8 +73,9 @@ NOTIFY_ADMIN_EMAIL="admin@example.com"
 - **DATABASE_URL**: MongoDB connection string used by Prisma to connect to your database.
 - **ADMIN_EMAIL/ADMIN_PASSWORD**: Credentials used for admin authentication in the middleware.
 - **EMAIL_SERVICE**: URL of your email service API for sending notifications.
-- **NODE_ENV**: Controls development-specific features like React Query DevTools.
 - **NOTIFY_ADMIN_EMAIL**: Email address to send admin notifications to.
+- **GMAIL_USER**: Your Gmail address for sending emails.
+- **GMAIL_APP_PASSWORD**: Your Gmail App Password for sending emails.
 
 ### 5. Setup Database
 
@@ -100,25 +104,8 @@ To test the production build locally:
 
 ```bash
 pnpm start
+pnpm start:mail # Start the mail server
 ```
-
-## Deployment on Vercel
-
-This project is optimized for deployment on Vercel:
-
-1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket)
-2. Import your project on [Vercel](https://vercel.com/new)
-3. Add your environment variables in the Vercel dashboard
-4. Deploy
-
-## MongoDB Setup
-
-1. Create a free account on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-2. Create a new cluster
-3. Set up database access (username and password)
-4. Set up network access (IP whitelist)
-5. Get your connection string from the "Connect" button
-6. Replace the placeholder values in the connection string with your actual credentials
 
 ## Project Structure
 
@@ -144,3 +131,57 @@ This project is optimized for deployment on Vercel:
 - **UI**: Tailwind CSS, shadcn/ui
 - **State Management**: TanStack Query
 - **Form Handling**: React Hook Form with Zod validation
+
+
+## Questions
+
+### 🔹 Q1: What is the tech stack used?
+
+A:
+Frontend: Next.js 15, Tailwind CSS, shadcn/ui
+Backend: Prisma ORM with MongoDB Atlas
+Email: Express.js + Nodemailer + Google SMTP
+State: TanStack Query
+Forms: React Hook Form + Zod
+
+### 🔹 Q2: Why did you use Next.js?
+
+A:
+Next.js provides both frontend and backend in one codebase. It supports server-side rendering, file-based routing, API routes, and has excellent deployment support via Vercel.
+
+### 🔹 Q3: Why is the mail server separate?
+
+A:
+To separate concerns. Keeping the email logic outside the frontend avoids blocking the UI and improves maintainability and scalability. Also, it allows deploying or scaling the mail server independently.
+
+### 🔹 Q5: How does authentication work?
+
+A:
+
+    Admin credentials are validated server-side
+
+    If valid, a secure HTTP-only cookie is set
+
+    The cookie is checked on each protected route via middleware
+
+### 🔹 Q6: How are emails sent?
+
+A:
+
+    Via an Express server at /mail-server/index.ts
+
+    It uses Nodemailer with Gmail SMTP
+
+    Credentials (GMAIL_USER, GMAIL_APP_PASSWORD) are stored in .env
+
+    Supports admin notifications and contact form emails
+
+### 🔹 Q7: Why Prisma with MongoDB?
+
+A:
+Prisma provides a type-safe way to interact with MongoDB using schema definitions. It improves developer productivity and reduces query bugs.
+
+### 🔹 Q9: How do you handle form validation?
+
+A:
+Using React Hook Form with Zod. It validates fields on the client before submission, and Zod provides schema-based, type-safe rules.
