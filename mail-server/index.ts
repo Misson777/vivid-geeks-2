@@ -35,6 +35,7 @@ async function sendMail(to: string, subject: string, body: string) {
 app.post("/", async (req, res) => {
   const { to, subject, body } = req.body;
   try {
+    console.log("Sending mail to ", req.body)
     const info = await sendMail(to, subject, body);
     console.log("Mail send", info)
     res.json({ message: "Email sent", info });
