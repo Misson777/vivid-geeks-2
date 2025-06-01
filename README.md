@@ -36,7 +36,7 @@ pnpm --version
 
 ```bash
 # Clone the repository
-git clone https://github.com/jrTilak/vivid-geeks-2
+git clone https://github.com/Misson777/vivid-geeks-2
 cd vivid-geeks-2
 
 # Install dependencies

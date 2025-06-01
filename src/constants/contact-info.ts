@@ -1,5 +1,5 @@
 export const CONTACT_INFO = {
-  phone: "0410758411",
+  phone: "+61 0410758411",
   email: "info@vividgeeks.com",
   address: {
     street: "55 Bell St, Coburg 3058",

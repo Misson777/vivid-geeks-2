@@ -12,23 +12,23 @@ import { MobileNavLink, NavLink } from "./nav-link";
 const NAV_LINKS = [
   {
     label: "Home",
-    href: "/",
+    href: "/#hero",
   },
   {
     label: "Services",
-    href: "/",
+    href: "/#services",
   },
   {
     label: "About",
-    href: "/",
+    href: "/#about",
   },
   {
     label: "Team",
-    href: "/",
+    href: "/#team",
   },
   {
     label: "Blogs",
-    href: "/",
+    href: "/blogs",
   },
 ];
 

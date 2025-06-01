@@ -62,7 +62,7 @@ const TEAM = [
 
 export default function TeamSection() {
   return (
-    <section className="w-full py-16 md:py-24">
+    <section className="w-full py-16 md:py-24" id="team">
       <div className="container px-4">
         <div className="mx-auto max-w-[800px] text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">

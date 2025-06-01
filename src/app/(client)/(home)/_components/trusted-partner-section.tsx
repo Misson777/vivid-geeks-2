@@ -45,7 +45,7 @@ const STATISTICS = [
 
 export default function TrustedPartnerSection() {
   return (
-    <section className="w-full py-16 md:py-24">
+    <section className="w-full py-16 md:py-24" id="about">
       <div className="container px-4">
         <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
           {/* Left Column */}

@@ -29,7 +29,7 @@ const SERVICES = [
 
 export default function HeroSection() {
   return (
-    <section id="hero" className="w-full py-16 md:py-24">
+    <section id="hero" className="w-full py-16 md:py-24" >
       <div className="container grid gap-8 px-4 md:grid-cols-2 md:gap-12 lg:gap-16">
         <div className="flex flex-col justify-center space-y-6">
           <Badge variant="secondary" className="w-fit">
