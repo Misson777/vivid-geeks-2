@@ -26,10 +26,6 @@ const NAV_LINKS = [
     label: "Team",
     href: "/#team",
   },
-  {
-    label: "Blogs",
-    href: "/blogs",
-  },
 ];
 
 export default function Header() {
