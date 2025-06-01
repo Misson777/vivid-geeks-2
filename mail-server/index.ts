@@ -36,8 +36,10 @@ app.post("/", async (req, res) => {
   const { to, subject, body } = req.body;
   try {
     const info = await sendMail(to, subject, body);
+    console.log("Mail send", info)
     res.json({ message: "Email sent", info });
   } catch (error) {
+    console.error("Err", error)
     res.status(500).json({ error: "Failed to send email", details: error });
   }
 });
